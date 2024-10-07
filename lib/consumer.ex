@@ -36,12 +36,12 @@ defmodule ExRabbitPool.Consumer do
   end
 
   @type meta :: map()
-  @type no_wait :: boolean()
+  @type nowait :: boolean()
   @type reason :: any()
 
   @callback basic_consume_ok(State.t(), AMQP.Basic.consumer_tag()) :: :ok | {:stop, reason}
   @callback basic_deliver(State.t(), AMQP.Basic.payload(), meta()) :: :ok | {:stop, reason}
-  @callback basic_cancel(State.t(), AMQP.Basic.consumer_tag(), no_wait()) :: :ok | {:stop, reason}
+  @callback basic_cancel(State.t(), AMQP.Basic.consumer_tag(), nowait()) :: :ok | {:stop, reason}
   @callback basic_cancel_ok(State.t(), AMQP.Basic.consumer_tag()) :: :ok | {:stop, reason}
 
   defmacro __using__(_opts) do
@@ -142,10 +142,10 @@ defmodule ExRabbitPool.Consumer do
       # Sent by the broker when the consumer is unexpectedly cancelled (such as after a queue deletion)
       @impl true
       def handle_info(
-            {:basic_cancel, %{consumer_tag: consumer_tag, no_wait: no_wait}},
+            {:basic_cancel, %{consumer_tag: consumer_tag, nowait: nowait}},
             %{consumer_tag: consumer_tag} = state
           ) do
-        case basic_cancel(state, consumer_tag, no_wait) do
+        case basic_cancel(state, consumer_tag, nowait) do
           :ok ->
             {:stop, :shutdown, state}
 
@@ -203,7 +203,7 @@ defmodule ExRabbitPool.Consumer do
 
       def setup_channel(_state, _channel), do: :ok
       def basic_consume_ok(_state, _consumer_tag), do: :ok
-      def basic_cancel(_state, _consumer_tag, _no_wait), do: :ok
+      def basic_cancel(_state, _consumer_tag, _nowait), do: :ok
       def basic_cancel_ok(_state, _consumer_tag), do: :ok
 
       defoverridable setup_channel: 2
