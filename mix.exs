@@ -5,7 +5,7 @@ defmodule ExRabbitPool.MixProject do
     [
       app: :ex_rabbit_pool,
       version: "1.0.3",
-      elixir: "~> 1.7",
+      elixir: "~> 1.10.3 or ~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
