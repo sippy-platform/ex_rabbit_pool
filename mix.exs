@@ -1,4 +1,4 @@
-defmodule BugsBunny.MixProject do
+defmodule ExRabbitPool.MixProject do
   use Mix.Project
 
   def project do
@@ -29,8 +29,7 @@ defmodule BugsBunny.MixProject do
 
   def application do
     [
-      # https://github.com/pma/amqp/issues/90
-      extra_applications: [:lager, :logger, :amqp]
+      extra_applications: [:logger]
     ]
   end
 
