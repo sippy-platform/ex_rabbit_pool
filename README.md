@@ -91,7 +91,7 @@ why we support setting up multiple queues thanks to poolboy
 
 ```elixir
 rabbitmq_config = [
-  channels: 1,
+  channels: 1, # This is 10 by default
 ]
 
 # Connection Pool Configuration
