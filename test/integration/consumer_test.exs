@@ -200,7 +200,7 @@ defmodule ExRabbitPool.ConsumerTest do
     end)
 
     assert_receive {:trace, ^consumer_pid, :receive,
-                    {:basic_cancel, %{consumer_tag: ^consumer_tag, no_wait: true}}},
+                    {:basic_cancel, %{consumer_tag: ^consumer_tag, nowait: true}}},
                    1000
 
     assert :ok = wait_for(fn -> !Process.alive?(consumer_pid) end)

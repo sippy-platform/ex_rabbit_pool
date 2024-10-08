@@ -1,11 +1,11 @@
-defmodule BugsBunny.MixProject do
+defmodule ExRabbitPool.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :ex_rabbit_pool,
       version: "1.0.3",
-      elixir: "~> 1.7",
+      elixir: "~> 1.10.3 or ~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
@@ -29,18 +29,17 @@ defmodule BugsBunny.MixProject do
 
   def application do
     [
-      # https://github.com/pma/amqp/issues/90
-      extra_applications: [:lager, :logger, :amqp]
+      extra_applications: [:logger]
     ]
   end
 
   defp deps do
     [
-      {:amqp, "~> 1.1"},
+      {:amqp, "~> 3.0"},
       {:poolboy, "~> 1.5"},
       {:credo, "~> 1.0.0", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.18", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.10.4", only: [:dev, :test], runtime: false}
+      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false}
     ]
   end
 end

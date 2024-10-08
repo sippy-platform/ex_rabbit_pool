@@ -23,7 +23,7 @@ defmodule Example.EchoConsumer do
   end
 
   # Sent by the broker when the consumer is unexpectedly cancelled (such as after a queue deletion)
-  def basic_cancel(_state, _consumer_tag, _no_wait) do
+  def basic_cancel(_state, _consumer_tag, _nowait) do
     Logger.error("[consumer] consumer was cancelled by the broker (basic_cancel)")
     :ok
   end
