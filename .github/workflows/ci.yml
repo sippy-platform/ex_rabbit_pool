@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    name: Setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir and compile cache
+        uses: ./.github/actions/setup
+
+      - name: Compile project
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix deps.get
+          mix deps.compile
+          mix compile — warnings-as-errors
+
+  lint:
+    name: Lint
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir and compile cache
+        uses: ./.github/actions/setup
+
+      - name: Check format
+        run: mix format --check-formatted
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    env:
+      MIX_ENV: test
+    services:
+      rabbitmq:
+        image: rabbitmq:latest
+        env:
+          RABBITMQ_DEFAULT_USER: guest
+          RABBITMQ_DEFAULT_PASS: guest
+        ports:
+          - 5672:5672
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir and compile cache
+        uses: ./.github/actions/setup
+
+      - name: Retrieve test cache
+        uses: actions/cache@v4
+        id: mix-cache-test
+        with:
+          path: _build/test
+          key: test-${{ hashFiles('mix.lock') }}
+
+      - name: Run test
+        run: mix test

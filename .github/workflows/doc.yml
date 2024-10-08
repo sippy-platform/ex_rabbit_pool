@@ -14,19 +14,8 @@ jobs:
       - name: Checkout commit
         uses: actions/checkout@v4
 
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: "26"
-          elixir-version: "1.17"
-
-      - name: Retrieve compile cache
-        uses: actions/cache@v4
-        id: mix-cache
-        with:
-          path: |
-            deps
-            _build
-          key: ${{ hashFiles('mix.lock') }}
+      - name: Setup Elixir and compile cache
+        uses: ./.github/actions/setup
 
       - name: Compile project
         if: steps.mix-cache.outputs.cache-hit != 'true'
