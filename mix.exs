@@ -9,9 +9,20 @@ defmodule ExRabbitPool.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
+      docs: docs(),
       description: "RabbitMQ connection pool library",
       package: package(),
       source_url: "https://github.com/esl/ex_rabbit_pool"
+    ]
+  end
+
+  defp docs do
+    [
+      main: "readme",
+      formatters: ["html"],
+      extras: [
+        "README.md": [title: "Overview"]
+      ]
     ]
   end
 

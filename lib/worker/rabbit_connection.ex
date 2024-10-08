@@ -324,7 +324,7 @@ defmodule ExRabbitPool.Worker.RabbitConnection do
     Keyword.get(config, :reconnect_interval, @reconnect_interval)
   end
 
-  @spec do_times(non_neg_integer(), non_neg_integer(), (() -> any())) :: [any()]
+  @spec do_times(non_neg_integer(), non_neg_integer(), (-> any())) :: [any()]
   defp do_times(limit, counter, _function) when counter >= limit, do: []
 
   defp do_times(limit, counter, function) do
