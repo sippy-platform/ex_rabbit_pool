@@ -116,9 +116,6 @@ defmodule ExRabbitPool.Consumer do
 
           {:stop, reason} ->
             {:stop, reason, state}
-
-          _ ->
-            {:noreply, state}
         end
       end
 
@@ -133,9 +130,6 @@ defmodule ExRabbitPool.Consumer do
 
           {:stop, reason} ->
             {:stop, reason, state}
-
-          _ ->
-            {:noreply, state}
         end
       end
 
