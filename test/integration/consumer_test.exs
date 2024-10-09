@@ -14,12 +14,22 @@ defmodule ExRabbitPool.ConsumerTest do
 
     def setup_channel(%{adapter: adapter, config: config}, channel) do
       config = Keyword.get(config, :options, [])
-      Logger.warn("Setting up channel with options: #{inspect(config)}")
+
+      # TODO: remove when we depend on Elixir ~> 1.11.
+      log_warning("Setting up channel with options: #{inspect(config)}")
+
       adapter.qos(channel, config)
     end
 
     def basic_deliver(%{adapter: adapter, channel: channel}, _payload, %{delivery_tag: tag}) do
       :ok = adapter.ack(channel, tag)
+    end
+
+    # TODO: remove when we depend on Elixir ~> 1.11.
+    if macro_exported?(Logger, :warning, 1) do
+      defp log_warning(message), do: Logger.warning(message)
+    else
+      defp log_warning(message), do: Logger.warn(message)
     end
   end
 
@@ -28,12 +38,22 @@ defmodule ExRabbitPool.ConsumerTest do
 
     def setup_channel(%{adapter: adapter, config: config}, channel) do
       config = Keyword.get(config, :options, [])
-      Logger.warn("Setting up channel with options: #{inspect(config)}")
+
+      # TODO: remove when we depend on Elixir ~> 1.11.
+      log_warning("Setting up channel with options: #{inspect(config)}")
+
       adapter.qos(channel, config)
     end
 
     def basic_deliver(_state, _payload, _meta) do
       :ok
+    end
+
+    # TODO: remove when we depend on Elixir ~> 1.11.
+    if macro_exported?(Logger, :warning, 1) do
+      defp log_warning(message), do: Logger.warning(message)
+    else
+      defp log_warning(message), do: Logger.warn(message)
     end
   end
 
