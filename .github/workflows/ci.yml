@@ -62,6 +62,7 @@ jobs:
 
   test:
     name: Test
+    needs: setup
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
