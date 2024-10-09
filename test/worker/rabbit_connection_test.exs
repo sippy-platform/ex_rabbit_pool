@@ -33,7 +33,7 @@ defmodule ExRabbitPool.Worker.RabbitConnectionTest do
   test "adds record to monitors table when checking out a channel", %{config: config} do
     new_config = Keyword.update!(config, :channels, fn _ -> 1 end)
     pid = start_supervised!({ConnWorker, new_config})
-    assert {:ok, %{pid: pid} = channel} = ConnWorker.checkout_channel(pid)
+    assert {:ok, %{pid: pid} = _channel} = ConnWorker.checkout_channel(pid)
     %{monitors: monitors} = ConnWorker.state(pid)
     assert Map.get(monitors, pid) |> is_reference()
   end
