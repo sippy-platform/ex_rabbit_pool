@@ -4,7 +4,7 @@ defmodule ExRabbitPool.MixProject do
   def project do
     [
       app: :ex_rabbit_pool,
-      version: "1.0.3",
+      version: "1.1.0",
       elixir: "~> 1.10.3 or ~> 1.11",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
