@@ -26,6 +26,10 @@ jobs:
           mix deps.compile
           mix compile — warnings-as-errors
 
+      - name: Create PLTs
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: mix dialyzer --plt --format github
+
   lint:
     name: Lint
     needs: setup
@@ -41,8 +45,24 @@ jobs:
       - name: Check format
         run: mix format --check-formatted
 
+  dialyzer:
+    name: Dialyzer
+    needs: setup
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v4
+
+      - name: Setup Elixir and compile cache
+        uses: ./.github/actions/setup
+
+      - name: Dialyzer
+        run: mix dialyzer --no-check --format github
+
   test:
     name: Test
+    needs: setup
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test

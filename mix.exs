@@ -50,7 +50,8 @@ defmodule ExRabbitPool.MixProject do
       {:poolboy, "~> 1.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.18", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false}
+      {:excoveralls, "~> 0.18", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 end

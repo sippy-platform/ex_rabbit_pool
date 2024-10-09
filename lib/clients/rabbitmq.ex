@@ -21,13 +21,13 @@ defmodule ExRabbitPool.RabbitMQ do
   end
 
   @impl true
-  def ack(%Channel{} = channel, tag, options \\ []) do
-    Basic.ack(channel, tag, options)
+  def ack(%Channel{} = channel, delivery_tag, options \\ []) do
+    Basic.ack(channel, delivery_tag, options)
   end
 
   @impl true
-  def reject(%Channel{} = channel, tag, options \\ []) do
-    Basic.reject(channel, tag, options)
+  def reject(%Channel{} = channel, delivery_tag, options \\ []) do
+    Basic.reject(channel, delivery_tag, options)
   end
 
   @impl true
