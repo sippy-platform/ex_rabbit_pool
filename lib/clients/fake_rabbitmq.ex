@@ -24,12 +24,12 @@ defmodule ExRabbitPool.FakeRabbitMQ do
   end
 
   @impl true
-  def ack(_channel, _tag, _options \\ []) do
+  def ack(_channel, _delivery_tag, _options \\ []) do
     :ok
   end
 
   @impl true
-  def reject(_channel, _tag, _options \\ []) do
+  def reject(_channel, _delivery_tag, _options \\ []) do
     :ok
   end
 
