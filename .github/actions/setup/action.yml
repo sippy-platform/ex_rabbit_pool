@@ -1,5 +1,6 @@
 name: Setup
 description: Setup BEAM and compile cache
+
 runs:
   using: composite
   steps:
@@ -15,4 +16,4 @@ runs:
         path: |
           deps
           _build
-        key: ${{hashFiles('mix.lock')}}-${{matrix.otp}}-${{matrix.elixir}}
+        key: ${{hashFiles('mix.lock')}}-${{matrix.otp || '26.x'}}-${{matrix.elixir || '1.17.x'}}
