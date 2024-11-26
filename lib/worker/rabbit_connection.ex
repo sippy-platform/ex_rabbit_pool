@@ -230,8 +230,7 @@ defmodule ExRabbitPool.Worker.RabbitConnection do
         {:EXIT, pid, reason},
         %{channels: channels, connection: conn, adapter: adapter, monitors: monitors} = state
       ) do
-    # TODO: remove when we depend on Elixir ~> 1.11.
-    log_warning("[Rabbit] channel lost reason: #{inspect(reason)}")
+    Logger.warning("[Rabbit] channel lost reason: #{inspect(reason)}")
 
     # don't start a new channel if crashed channel doesn't belongs to the pool
     # anymore, this can happen when a channel crashed or is closed when a client holds it
@@ -383,12 +382,5 @@ defmodule ExRabbitPool.Worker.RabbitConnection do
 
   defp find_monitor(monitors, ref) do
     Enum.find(monitors, fn {_pid, monitor_ref} -> monitor_ref == ref end)
-  end
-
-  # TODO: remove when we depend on Elixir ~> 1.11.
-  if macro_exported?(Logger, :warning, 1) do
-    defp log_warning(message), do: Logger.warning(message)
-  else
-    defp log_warning(message), do: Logger.warn(message)
   end
 end
