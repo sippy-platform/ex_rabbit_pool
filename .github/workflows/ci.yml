@@ -15,8 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # rabbit_common currently doesn't support OTP27
-          - otp: 26.x # 27.x
+          - otp: 27.x
             elixir: 1.17.x
           - otp: 26.x
             elixir: 1.16.x
@@ -24,10 +23,6 @@ jobs:
             elixir: 1.15.x
           - otp: 26.x
             elixir: 1.14.5
-          - otp: 25.x
-            elixir: 1.13.4
-          - otp: 24.x
-            elixir: 1.12.3
 
     steps:
       - name: Checkout commit
@@ -85,8 +80,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # rabbit_common currently doesn't support OTP27
-          - otp: 26.x # 27.x
+          - otp: 27.x
             elixir: 1.17.x
           - otp: 26.x
             elixir: 1.16.x
@@ -94,10 +88,7 @@ jobs:
             elixir: 1.15.x
           - otp: 26.x
             elixir: 1.14.5
-          - otp: 25.x
-            elixir: 1.13.4
-          - otp: 24.x
-            elixir: 1.12.3
+
     env:
       MIX_ENV: test
     services:

@@ -4,8 +4,8 @@ defmodule ExRabbitPool.MixProject do
   def project do
     [
       app: :ex_rabbit_pool,
-      version: "1.1.0",
-      elixir: "~> 1.10.3 or ~> 1.11",
+      version: "1.2.0",
+      elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       test_coverage: [tool: ExCoveralls],
@@ -46,7 +46,7 @@ defmodule ExRabbitPool.MixProject do
 
   defp deps do
     [
-      {:amqp, "~> 3.0"},
+      {:amqp, "~> 4.0"},
       {:poolboy, "~> 1.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.18", only: :dev, runtime: false},
