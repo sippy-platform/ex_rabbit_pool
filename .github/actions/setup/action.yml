@@ -16,4 +16,4 @@ runs:
         path: |
           deps
           _build
-        key: ${{hashFiles('mix.lock')}}-${{matrix.otp || '27.x'}}-${{matrix.elixir || '1.17.x'}}
+        key: ${{github.workflow}}-${{hashFiles('mix.lock')}}-${{matrix.otp || '27.x'}}-${{matrix.elixir || '1.17.x'}}
